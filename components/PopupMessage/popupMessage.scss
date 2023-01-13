@@ -1,0 +1,16 @@
+.popup-message-global {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 3rem;
+  font-weight: 600;
+  &.success {
+    color: rgb(129, 205, 133);
+  }
+  &.fail {
+    color: rgb(217, 105, 105);
+  }
+}

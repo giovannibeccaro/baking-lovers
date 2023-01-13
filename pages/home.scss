@@ -1,0 +1,33 @@
+.main-home {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 3rem auto 0;
+  gap: 3rem;
+  align-items: center;
+  h1 {
+    font-size: 5rem;
+    line-height: 1.35;
+    text-align: center;
+    @media (max-width: $mobile) {
+      font-size: 3rem;
+    }
+  }
+
+  button {
+    font-size: 1.5rem;
+    background-color: rgb(255, 235, 235);
+    border: none;
+    box-shadow: 0.5rem 0.5rem $accentColor;
+    width: 15rem;
+    padding: 0.5rem 1rem;
+    transition-duration: 300ms;
+    &:hover {
+      box-shadow: 0.35rem 0.35rem $accentColor;
+      cursor: pointer;
+    }
+    a {
+      color: $black;
+    }
+  }
+}

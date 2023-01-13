@@ -1,0 +1,8 @@
+@import "/styles/variables";
+@import "/styles/global";
+@import "../components/Navbar/navbar";
+@import "../pages/home.scss";
+@import "../pages/dolci/dolci";
+@import "../pages/admin/admin";
+@import "../components/PopupMessage/popupMessage";
+@import "../components/SingleDolce.tsx/singleDolce";
