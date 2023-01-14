@@ -17,6 +17,10 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 0.75rem;
+    &[for="ingredient-quantity"],
+    &[for="ingredient"] {
+      text-align: center;
+    }
   }
   input {
     padding: 0.35rem 1rem;
@@ -41,7 +45,7 @@
       margin-left: 0.25rem;
       font-size: 0.9rem;
       &:hover::after {
-        content: "Inserisci il link di un'immagine, ad sesempio: 'https://i.insider.com/602ee9ced3ad27001837f2ac?width=1000&format=jpeg&auto=webp'";
+        content: "Inserisci il link di un'immagine, ad esempio: 'https://i.insider.com/602ee9ced3ad27001837f2ac?width=1000&format=jpeg&auto=webp'. Il link deve iniziare con 'https'";
         font-size: 0.75rem;
         background-color: rgba(0, 0, 0, 0.75);
         color: white;

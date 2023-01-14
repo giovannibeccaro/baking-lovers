@@ -14,7 +14,6 @@ const SingleDolce: React.FC<ProductType> = ({
   const [showIngredients, setShowIngredients] = useState(false);
 
   const discountedPrice = getPrice(price, expirationDate);
-  if (discountedPrice.discount === 80) console.log(prodName);
 
   return (
     <article

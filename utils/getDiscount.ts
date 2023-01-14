@@ -8,10 +8,15 @@ export function getPrice(price: string, expirationDate: string): PriceType {
 
   // subtract the discounted amount from the original price to get new price
   const actualDiscount = (Number(price) * discountPercentage) / 100;
-  const newPrice = Number(price) - actualDiscount;
+  let newPrice = (Number(price) - actualDiscount).toFixed(2);
+
+  //? this weird if statement checks whether new price ends with both decimals at 0 (ex. 8.00, 12.00, ecc.) and cuts the useless decimals part. Just for aesthetic to be honest
+  if (!Number(newPrice.split(".")[1])) {
+    newPrice = newPrice.split(".")[0];
+  }
   return {
     discount: discountPercentage,
-    newPrice: newPrice.toString(),
+    newPrice: newPrice,
   };
 }
 
