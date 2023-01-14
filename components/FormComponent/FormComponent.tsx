@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import IngredientsInput from "../IngredientsInput/IngredientsInput";
-import { ProductType } from "../../types";
+import { DataType, ProductType } from "../../types";
 
 type Props = {
   prodName: string;
@@ -116,7 +116,7 @@ const FormComponent: React.FC<Props> = ({
       date,
       ingredientList,
       id: new Date().getTime().toString(),
-    };
+    } as ProductType;
     // yeah, not the best practice in the world to create an Id based on the current date milliseconds, but this isn't a real world project, so I think we'll be fine
     const req = await fetch("/api/new-product", {
       method: "POST",
@@ -142,7 +142,7 @@ const FormComponent: React.FC<Props> = ({
       date,
       ingredientList,
       id: editingId,
-    };
+    } as ProductType;
     const req = await fetch("/api/edit-product", {
       method: "PATCH",
       body: JSON.stringify(data),
