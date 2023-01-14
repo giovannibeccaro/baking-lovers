@@ -1,7 +1,8 @@
 import React from "react";
 import dbAccess from "../../utils/dbAccess";
 import { ProductType } from "../../types";
-import SingleDolce from "../../components/SingleDolce.tsx/SingleDolce";
+import SingleDolce from "../../components/SingleDolce/SingleDolce";
+
 type Props = {
   dolci: ProductType[];
 };
@@ -29,7 +30,7 @@ export async function getStaticProps() {
     quantity: el.quantity,
     image: el.image,
     ingredientList: el.ingredientList,
-    id: el._id.toString(),
+    id: el.id,
   }));
   client.close();
 

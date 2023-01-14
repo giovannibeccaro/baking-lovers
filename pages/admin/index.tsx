@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import FormComponent from "../../components/FormComponent/FormComponent";
 import PopupMessage from "../../components/PopupMessage/PopupMessage";
+import ProductList from "../../components/ProductList/ProductList";
 import ProductPreview from "../../components/ProductPreview/ProductPreview";
+import { ProductType } from "../../types";
+import dbAccess from "../../utils/dbAccess";
 import { inputErrors } from "../../utils/inputErrors";
 
-const Admin = () => {
+type Props = {
+  dolci: ProductType[];
+};
+
+const Admin: React.FC<Props> = ({ dolci }) => {
   // setting product states
   const [prodName, setProdName] = useState("");
   const [price, setPrice] = useState("");
@@ -18,6 +25,7 @@ const Admin = () => {
   const [error, setError] = useState<string[]>([]);
   // message that pops up when user uploads product
   const [popupMessage, setPopupMessage] = useState<string>("");
+  const [allProducts, setAllProducts] = useState<ProductType[]>(dolci);
 
   return (
     <main className="main-admin">
@@ -54,6 +62,7 @@ const Admin = () => {
           setIngredientQuantity={setIngredientQuantity}
           setError={setError}
           setPopupMessage={setPopupMessage}
+          setAllProducts={setAllProducts}
         />
         <ProductPreview
           prodName={prodName}
@@ -64,8 +73,35 @@ const Admin = () => {
           ingredientList={ingredientList}
         />
       </section>
+      <ProductList
+        allProducts={allProducts}
+        setAllProducts={setAllProducts}
+        setPopupMessage={setPopupMessage}
+      />
     </main>
   );
 };
+
+export async function getStaticProps() {
+  const { collection, client } = await dbAccess();
+  const dolci = await collection.find().toArray();
+  const dolciSerialized = dolci.map((el) => ({
+    prodName: el.prodName,
+    price: el.price,
+    quantity: el.quantity,
+    date: el.date,
+    image: el.image,
+    ingredientList: el.ingredientList,
+    id: el.id,
+  }));
+  client.close();
+
+  return {
+    props: {
+      dolci: dolciSerialized.length ? dolciSerialized : [],
+    },
+    revalidate: 1,
+  };
+}
 
 export default Admin;

@@ -1,4 +1,6 @@
 import React from "react";
+import IngredientsInput from "../IngredientsInput/IngredientsInput";
+import { ProductType } from "../../types";
 
 type Props = {
   prodName: string;
@@ -21,6 +23,7 @@ type Props = {
   setIngredientList: React.Dispatch<React.SetStateAction<string[]>>;
   setError: React.Dispatch<React.SetStateAction<string[]>>;
   setPopupMessage: React.Dispatch<React.SetStateAction<string>>;
+  setAllProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
 };
 
 const FormComponent: React.FC<Props> = ({
@@ -44,33 +47,8 @@ const FormComponent: React.FC<Props> = ({
   setIngredientList,
   setError,
   setPopupMessage,
+  setAllProducts,
 }) => {
-  function handleIngredientSubmit() {
-    setError([]); // error reset
-    // first check if both ingredient and quantity are valid
-    if (!ingredient || ingredient.indexOf(":") !== -1) {
-      setError((prev) => [...prev, "ingredient"]);
-    }
-    if (!ingredientQuantity || ingredientQuantity.indexOf(":") !== -1) {
-      setError((prev) => [...prev, "ingredientQuantity"]);
-    }
-
-    // if both are valid, insert ingredient in ingredientList
-    if (
-      ingredient &&
-      ingredientQuantity &&
-      ingredient.indexOf(":") === -1 &&
-      ingredientQuantity.indexOf(":") === -1
-    ) {
-      setIngredientList((prev) => [
-        ...prev,
-        `${ingredient}: ${ingredientQuantity}`,
-      ]);
-      setIngredient("");
-      setIngredientQuantity("");
-    }
-  }
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     let errorFlag = false; // this will be updated if something goes wrong, thus exiting the function
@@ -106,15 +84,22 @@ const FormComponent: React.FC<Props> = ({
 
     //finally, if there is no error, post request and clear fields
     postRequest();
+    handleReset();
+  }
+
+  function handleReset() {
     setProdName("");
     setPrice("");
     setQuantity("");
     setImage("");
     setDate("");
+    setIngredient("");
+    setIngredientQuantity("");
     setIngredientList([]);
   }
 
   async function postRequest() {
+    // yeah, not the best practice in the world to create an Id based on the current date milliseconds, but this isn't a real world project, so I think we'll be fine
     const data = {
       prodName,
       price,
@@ -122,6 +107,7 @@ const FormComponent: React.FC<Props> = ({
       image,
       date,
       ingredientList,
+      id: new Date().getTime().toString(),
     };
     const req = await fetch("/api/new-product", {
       method: "POST",
@@ -132,6 +118,7 @@ const FormComponent: React.FC<Props> = ({
     });
     if (req.ok) {
       setPopupMessage("Il prodotto è stato inserito correttamente!");
+      setAllProducts((prev) => [...prev, data]);
     } else {
       setPopupMessage("C'è stato un problema con il caricamento, riprovare");
     }
@@ -207,49 +194,20 @@ const FormComponent: React.FC<Props> = ({
           onChange={(e) => setDate(e.target.value)}
         />
       </label>
-      <div className="ingredients-and-quantity">
-        <label htmlFor="ingredients">
-          Ingrediente
-          <input
-            className={`${error.includes("ingredient") ? "error" : ""}`}
-            type="text"
-            name="ingredient"
-            placeholder="Farina..."
-            value={ingredient}
-            onClick={() =>
-              setError((prev) => prev.filter((el) => el !== "ingredient"))
-            }
-            onChange={(e) => setIngredient(e.target.value)}
-          />
-        </label>
-        <label htmlFor="ingredientQuantity">
-          Quantità
-          <input
-            className={`${error.includes("ingredientQuantity") ? "error" : ""}`}
-            type="text"
-            name="ingredient-quantity"
-            placeholder="500gr..."
-            value={ingredientQuantity}
-            onClick={() =>
-              setError((prev) =>
-                prev.filter((el) => el !== "ingredientQuantity")
-              )
-            }
-            onChange={(e) => setIngredientQuantity(e.target.value)}
-          />
-        </label>
-        <button
-          type="button"
-          onClick={handleIngredientSubmit}
-          className="add-ingredient"
-        >
-          INSERISCI
-        </button>
-      </div>
+      <IngredientsInput
+        ingredientList={ingredientList}
+        ingredient={ingredient}
+        ingredientQuantity={ingredientQuantity}
+        error={error}
+        setIngredientList={setIngredientList}
+        setIngredient={setIngredient}
+        setIngredientQuantity={setIngredientQuantity}
+        setError={setError}
+      />
       <button className="submit-btn" type="submit">
         PUBBLICA
       </button>
-      <button className="reset-btn" type="button">
+      <button onClick={handleReset} className="reset-btn" type="button">
         RESETTA
       </button>
     </form>

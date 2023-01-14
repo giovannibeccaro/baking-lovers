@@ -19,7 +19,7 @@ const ProductPreview: React.FC<ProductTypeNoId> = ({
       <p>Data di preparazione: {date.split("-").reverse().join("/")}</p>
       <span className="ingredient-list">
         <p>Lista degli ingredienti: </p>
-        <ul>
+        <ul className="ingredients">
           {ingredientList.map((el, i) => (
             <li key={i}>{el},</li>
           ))}

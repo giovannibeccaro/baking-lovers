@@ -1,0 +1,21 @@
+.ingredients-and-quantity {
+  display: flex;
+  align-items: flex-end;
+  gap: 1%;
+  margin-bottom: 1rem;
+  label {
+    width: 30%;
+  }
+  button {
+    width: 15%;
+    height: 2.5rem;
+    margin-bottom: 0.75rem; // same as label
+    &:disabled {
+      background-color: rgb(118, 118, 118);
+      cursor: not-allowed;
+    }
+    &.add-ingredient {
+      width: 25%;
+    }
+  }
+}
