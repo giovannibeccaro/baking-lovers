@@ -26,6 +26,7 @@ const Admin: React.FC<Props> = ({ dolci }) => {
   // message that pops up when user uploads product
   const [popupMessage, setPopupMessage] = useState<string>("");
   const [allProducts, setAllProducts] = useState<ProductType[]>(dolci);
+  const [editingId, setEditingId] = useState("");
 
   return (
     <main className="main-admin">
@@ -63,6 +64,8 @@ const Admin: React.FC<Props> = ({ dolci }) => {
           setError={setError}
           setPopupMessage={setPopupMessage}
           setAllProducts={setAllProducts}
+          editingId={editingId}
+          setEditingId={setEditingId}
         />
         <ProductPreview
           prodName={prodName}
@@ -77,6 +80,13 @@ const Admin: React.FC<Props> = ({ dolci }) => {
         allProducts={allProducts}
         setAllProducts={setAllProducts}
         setPopupMessage={setPopupMessage}
+        setProdName={setProdName}
+        setPrice={setPrice}
+        setQuantity={setQuantity}
+        setImage={setImage}
+        setDate={setDate}
+        setIngredientList={setIngredientList}
+        setEditingId={setEditingId}
       />
     </main>
   );

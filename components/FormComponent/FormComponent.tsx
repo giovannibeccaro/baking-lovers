@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IngredientsInput from "../IngredientsInput/IngredientsInput";
 import { ProductType } from "../../types";
 
@@ -24,6 +24,8 @@ type Props = {
   setError: React.Dispatch<React.SetStateAction<string[]>>;
   setPopupMessage: React.Dispatch<React.SetStateAction<string>>;
   setAllProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
+  editingId: string;
+  setEditingId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const FormComponent: React.FC<Props> = ({
@@ -48,6 +50,8 @@ const FormComponent: React.FC<Props> = ({
   setError,
   setPopupMessage,
   setAllProducts,
+  editingId,
+  setEditingId,
 }) => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -83,7 +87,12 @@ const FormComponent: React.FC<Props> = ({
     if (errorFlag) return;
 
     //finally, if there is no error, post request and clear fields
-    postRequest();
+    if (editingId) {
+      updateRequest();
+    } else {
+      postRequest();
+    }
+
     handleReset();
   }
 
@@ -99,7 +108,6 @@ const FormComponent: React.FC<Props> = ({
   }
 
   async function postRequest() {
-    // yeah, not the best practice in the world to create an Id based on the current date milliseconds, but this isn't a real world project, so I think we'll be fine
     const data = {
       prodName,
       price,
@@ -109,6 +117,7 @@ const FormComponent: React.FC<Props> = ({
       ingredientList,
       id: new Date().getTime().toString(),
     };
+    // yeah, not the best practice in the world to create an Id based on the current date milliseconds, but this isn't a real world project, so I think we'll be fine
     const req = await fetch("/api/new-product", {
       method: "POST",
       body: JSON.stringify(data),
@@ -121,6 +130,35 @@ const FormComponent: React.FC<Props> = ({
       setAllProducts((prev) => [...prev, data]);
     } else {
       setPopupMessage("C'è stato un problema con il caricamento, riprovare");
+    }
+  }
+
+  async function updateRequest() {
+    const data = {
+      prodName,
+      price,
+      quantity,
+      image,
+      date,
+      ingredientList,
+      id: editingId,
+    };
+    const req = await fetch("/api/edit-product", {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    });
+    if (req.ok) {
+      setPopupMessage("Il prodotto è stato modificato correttamente!");
+      setAllProducts((prev) =>
+        prev.map((el) => {
+          if (el.id === editingId) {
+            return data;
+          }
+          return el;
+        })
+      );
+    } else {
+      setPopupMessage("C'è stato un problema con la modifica, riprovare");
     }
   }
 
@@ -205,7 +243,7 @@ const FormComponent: React.FC<Props> = ({
         setError={setError}
       />
       <button className="submit-btn" type="submit">
-        PUBBLICA
+        {editingId ? "MODIFICA" : "PUBBLICA"}
       </button>
       <button onClick={handleReset} className="reset-btn" type="button">
         RESETTA

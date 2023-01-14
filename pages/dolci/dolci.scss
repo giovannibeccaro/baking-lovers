@@ -1,0 +1,17 @@
+.main-dolci {
+  width: 80%;
+  margin-inline: auto;
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+  .section-dolci {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+
+    article {
+      margin-inline: auto;
+    }
+  }
+}

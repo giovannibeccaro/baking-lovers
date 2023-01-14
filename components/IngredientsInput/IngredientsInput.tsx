@@ -54,6 +54,8 @@ const IngredientsInput: React.FC<Props> = ({
         ingredientsCopy[currentIngredientIndex] = ingredientToChange;
         // we set the state
         setIngredientList(ingredientsCopy);
+        setIngredient("");
+        setIngredientQuantity("");
       } else {
         setIngredientList((prev) => [
           ...prev,
@@ -85,7 +87,7 @@ const IngredientsInput: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    console.log(ingredientList);
+    setCurrentIngredientIndex(ingredientList.length);
   }, [ingredientList]);
 
   return (

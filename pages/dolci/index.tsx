@@ -24,7 +24,8 @@ const Dolci: React.FC<Props> = ({ dolci }) => {
 export async function getStaticProps() {
   const { collection, client } = await dbAccess();
   const dolci = await collection.find().toArray();
-  const dolciSerialized = dolci.map((el) => ({
+  // we map through dolci to not pass property "_id" passed by mongoDB
+  const mappedDolci = dolci.map((el) => ({
     prodName: el.prodName,
     price: el.price,
     quantity: el.quantity,
@@ -36,7 +37,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      dolci: dolciSerialized.length ? dolciSerialized : [],
+      dolci: mappedDolci.length ? mappedDolci : [],
     },
     revalidate: 1,
   };

@@ -1,15 +1,12 @@
 nav {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 2rem 3rem;
   align-items: center;
   gap: 1rem;
   .logo {
     font-weight: 600;
     font-size: 1.5rem;
-    @media (max-width: $mobile) {
-      font-size: 1.25rem;
-    }
   }
   ul {
     padding: 0;
@@ -22,6 +19,12 @@ nav {
 
     a {
       color: $black;
+    }
+  }
+  @media (max-width: $mobile) {
+    padding: 1rem 2rem;
+    .logo {
+      font-size: 1.25rem;
     }
   }
 }

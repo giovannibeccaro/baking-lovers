@@ -6,12 +6,26 @@ type Props = {
   allProducts: ProductType[];
   setAllProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
   setPopupMessage: React.Dispatch<React.SetStateAction<string>>;
+  setProdName: React.Dispatch<React.SetStateAction<string>>;
+  setPrice: React.Dispatch<React.SetStateAction<string>>;
+  setQuantity: React.Dispatch<React.SetStateAction<string>>;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
+  setDate: React.Dispatch<React.SetStateAction<string>>;
+  setIngredientList: React.Dispatch<React.SetStateAction<string[]>>;
+  setEditingId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const ProductList: React.FC<Props> = ({
   allProducts,
   setAllProducts,
   setPopupMessage,
+  setProdName,
+  setPrice,
+  setQuantity,
+  setImage,
+  setDate,
+  setIngredientList,
+  setEditingId,
 }) => {
   async function handleDeleteOne(id: string) {
     const req = await fetch("/api/delete-product", {
@@ -25,8 +39,16 @@ const ProductList: React.FC<Props> = ({
       setPopupMessage("C'è stato un problema con la rimozione, riprovare");
     }
   }
+  async function handleEdit(data: ProductType) {
+    setProdName(data.prodName);
+    setPrice(data.price);
+    setQuantity(data.quantity);
+    setImage(data.image);
+    setDate(data.date);
+    setIngredientList(data.ingredientList);
+    setEditingId(data.id);
+  }
 
-  console.log(allProducts);
   return (
     <div className="product-list">
       <h2>Lista prodotti caricati</h2>
@@ -49,7 +71,9 @@ const ProductList: React.FC<Props> = ({
               </div>
             </div>
             <div className="right">
-              <button className="edit">Modifica</button>
+              <button onClick={() => handleEdit(el)} className="edit">
+                Modifica
+              </button>
               <button onClick={() => handleDeleteOne(el.id)} className="delete">
                 Elimina
               </button>

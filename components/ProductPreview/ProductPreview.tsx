@@ -21,7 +21,7 @@ const ProductPreview: React.FC<ProductTypeNoId> = ({
         <p>Lista degli ingredienti: </p>
         <ul className="ingredients">
           {ingredientList.map((el, i) => (
-            <li key={i}>{el},</li>
+            <li key={i}>{el}</li>
           ))}
         </ul>
       </span>
