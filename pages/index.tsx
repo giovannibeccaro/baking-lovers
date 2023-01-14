@@ -6,7 +6,7 @@ export default function Home() {
   useEffect(() => {
     document.body.classList.add("bg");
 
-    return function cleanup() {
+    return () => {
       document.body.classList.remove("bg");
     };
   }, []);

@@ -9,10 +9,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const data = req.body; // this contains name, price, quantity etc.
+  const data = req.body;
   try {
     const { collection, client } = await dbAccess();
-    await collection.insertOne(data);
+    const hour = new Date().getHours() + ":00";
+    const expirationDate = new Date(data.date + " " + hour);
+    // add 3 days to passed date
+    expirationDate.setDate(expirationDate.getDate() + 3);
+    await collection.createIndex({ expireAt: 1 }, { expireAfterSeconds: 0 });
+    await collection.insertOne({ ...data, expireAt: expirationDate });
     client.close();
     res.status(201).json({ message: "Il dolce è stato aggiunto!" });
   } catch (error) {

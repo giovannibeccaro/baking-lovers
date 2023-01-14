@@ -82,6 +82,10 @@ body {
     background-image: url("../public/bg.svg");
     background-size: cover;
   }
+  &.bg2 {
+    background-image: url("../public/bg2.svg");
+    background-size: cover;
+  }
 }
 
 a {
@@ -91,4 +95,5 @@ a {
 
 button {
   border: none;
+  cursor: pointer;
 }

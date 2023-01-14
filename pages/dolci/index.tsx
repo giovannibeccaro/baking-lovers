@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dbAccess from "../../utils/dbAccess";
 import { ProductType } from "../../types";
 import SingleDolce from "../../components/SingleDolce/SingleDolce";
@@ -8,7 +8,13 @@ type Props = {
 };
 
 const Dolci: React.FC<Props> = ({ dolci }) => {
-  console.log(dolci);
+  useEffect(() => {
+    document.body.classList.add("bg2");
+
+    return () => {
+      document.body.classList.remove("bg2");
+    };
+  }, []);
   return (
     <main className="main-dolci">
       <h1>I nostri Dolci</h1>
@@ -29,9 +35,11 @@ export async function getStaticProps() {
     prodName: el.prodName,
     price: el.price,
     quantity: el.quantity,
+    date: el.date,
     image: el.image,
     ingredientList: el.ingredientList,
     id: el.id,
+    expirationDate: JSON.stringify(el.expireAt),
   }));
   client.close();
 

@@ -12,6 +12,7 @@ type Props = {
 };
 
 const Admin: React.FC<Props> = ({ dolci }) => {
+  console.log(dolci);
   // setting product states
   const [prodName, setProdName] = useState("");
   const [price, setPrice] = useState("");
@@ -31,7 +32,7 @@ const Admin: React.FC<Props> = ({ dolci }) => {
   return (
     <main className="main-admin">
       <h1>Pannello di controllo amministratore</h1>
-      {popupMessage.length > 0 && (
+      {popupMessage && (
         <PopupMessage message={popupMessage} setMessage={setPopupMessage} />
       )}
       {error.length
@@ -103,6 +104,7 @@ export async function getStaticProps() {
     image: el.image,
     ingredientList: el.ingredientList,
     id: el.id,
+    expirationDate: JSON.stringify(el.expireAt),
   }));
   client.close();
 

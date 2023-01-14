@@ -126,7 +126,7 @@ const FormComponent: React.FC<Props> = ({
       },
     });
     if (req.ok) {
-      setPopupMessage("Il prodotto è stato inserito correttamente!");
+      setPopupMessage("Il prodotto è stato inserito con successo!");
       setAllProducts((prev) => [...prev, data]);
     } else {
       setPopupMessage("C'è stato un problema con il caricamento, riprovare");
@@ -148,7 +148,7 @@ const FormComponent: React.FC<Props> = ({
       body: JSON.stringify(data),
     });
     if (req.ok) {
-      setPopupMessage("Il prodotto è stato modificato correttamente!");
+      setPopupMessage("Il prodotto è stato modificato con successo!");
       setAllProducts((prev) =>
         prev.map((el) => {
           if (el.id === editingId) {

@@ -18,6 +18,7 @@ export type ProductType = {
   date: string;
   ingredientList: string[];
   id: string;
+  expirationDate: string;
 };
 export type ProductTypeNoId = {
   prodName: string;

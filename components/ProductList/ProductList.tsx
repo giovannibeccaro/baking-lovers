@@ -33,7 +33,7 @@ const ProductList: React.FC<Props> = ({
       body: id,
     });
     if (req.ok) {
-      setPopupMessage("Il prodotto è stato eliminato correttamente!");
+      setPopupMessage("Il prodotto è stato eliminato con successo!");
       setAllProducts((prev) => prev.filter((el) => el.id !== id));
     } else {
       setPopupMessage("C'è stato un problema con la rimozione, riprovare");
@@ -47,6 +47,7 @@ const ProductList: React.FC<Props> = ({
     setDate(data.date);
     setIngredientList(data.ingredientList);
     setEditingId(data.id);
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -60,13 +61,17 @@ const ProductList: React.FC<Props> = ({
               <div className="info">
                 <p>{el.prodName}, </p>
                 <p>{el.price}€, </p>
-                <p>x{el.quantity} </p>
+                <p>x{el.quantity}, </p>
                 <p>{el.date.split("-").reverse().join("/")},</p>
                 <p>
                   Ingredienti:{" "}
-                  {el.ingredientList.map(
-                    (el) => el.split(":")[0].toLowerCase() + ", "
-                  )}
+                  {el.ingredientList.map((el, i, original) => {
+                    if (i === original.length - 1) {
+                      return el.split(":")[0].toLowerCase();
+                    } else {
+                      return el.split(":")[0].toLowerCase() + ", ";
+                    }
+                  })}
                 </p>
               </div>
             </div>

@@ -1,25 +1,55 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { ProductType } from "../../types";
+import { getPrice } from "../../utils/getDiscount";
 
 const SingleDolce: React.FC<ProductType> = ({
   prodName,
   price,
   quantity,
   image,
-  date,
   ingredientList,
+  expirationDate,
 }) => {
+  const [showIngredients, setShowIngredients] = useState(false);
+
+  const discountedPrice = getPrice(price, expirationDate);
+  if (discountedPrice.discount === 80) console.log(prodName);
+
   return (
-    <article className="single-dolce">
-      <Image src={image} alt={prodName} width="200" height="280" />
-      <div className="info">
-        <p className="prod-name">{prodName}</p>
-        <div className="second-layer">
-          <p className="price">{price}€</p>
-          <p className="quantity">x{quantity}</p>
+    <article
+      onClick={() => setShowIngredients(!showIngredients)}
+      className={`${showIngredients ? "single-dolce" : "single-dolce"}`}
+    >
+      {showIngredients ? (
+        <div className="ingredients-cardback">
+          {ingredientList.map((el, i) => (
+            <li key={i}>{el}</li>
+          ))}
         </div>
-      </div>
+      ) : (
+        <>
+          <Image src={image} alt={prodName} width="200" height="280" />
+          <div className="info">
+            <p className="prod-name">{prodName}</p>
+            <div className="second-layer">
+              {discountedPrice.discount ? (
+                <p className="price">
+                  <span className="old-price">{price}€</span>
+                  <sup className="discount">
+                    {discountedPrice.discount}%
+                  </sup>{" "}
+                  {discountedPrice.newPrice}€
+                </p>
+              ) : (
+                <p className="price">{price}€</p>
+              )}
+
+              <p className="quantity">x{quantity}</p>
+            </div>
+          </div>
+        </>
+      )}
     </article>
   );
 };

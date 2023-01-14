@@ -5,11 +5,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const data = JSON.parse(req.body); // this contains name, price, quantity etc.
+  const data = JSON.parse(req.body);
   const filter = { id: data.id };
-  console.log(filter);
+
   try {
     const { collection, client } = await dbAccess();
+
+    const hour = new Date().getHours() + ":00";
+    const expirationDate = new Date(data.date + " " + hour);
+    // add 3 days to passed date
+    expirationDate.setDate(expirationDate.getDate() + 3);
+
     await collection.updateOne(filter, {
       $set: {
         prodName: data.prodName,
@@ -18,6 +24,7 @@ export default async function handler(
         image: data.image,
         date: data.date,
         ingredientList: data.ingredientList,
+        expireAt: expirationDate,
       },
     });
     await client.close();

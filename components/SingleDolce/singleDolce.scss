@@ -1,14 +1,21 @@
 .single-dolce {
   display: flex;
   flex-direction: column;
-  width: 200px; // same as image width
+  width: calc(200px + 2rem * 2); // same as image width + padding*2
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+  cursor: pointer;
+  position: relative;
+  min-height: 420px;
   img {
     width: 200px;
+    margin-bottom: 0.75rem;
   }
   .info {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
   }
   .second-layer {
     display: flex;
@@ -18,5 +25,23 @@
       opacity: 0.7;
       font-weight: 600;
     }
+    .price {
+      font-weight: 600;
+      .old-price {
+        text-decoration: line-through;
+        text-decoration-thickness: 3px;
+        text-decoration-color: rgba(0, 0, 0, 0.75);
+        margin-right: 0.25rem;
+        font-weight: 300;
+      }
+      .discount {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: $accentColor;
+      }
+    }
+  }
+  .ingredients-cardback {
+    padding-left: 1rem;
   }
 }

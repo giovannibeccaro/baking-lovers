@@ -1,5 +1,5 @@
 .popup-message-global {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
   top: 20%;
@@ -7,6 +7,8 @@
   transform: translateX(-50%);
   padding: 1rem 3rem;
   font-weight: 600;
+  text-align: center;
+  z-index: 99999;
   &.success {
     color: rgb(129, 205, 133);
   }
