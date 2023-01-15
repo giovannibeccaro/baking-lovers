@@ -2,12 +2,19 @@ import React, { useEffect } from "react";
 import dbAccess from "../../utils/dbAccess";
 import { ProductType } from "../../types";
 import SingleDolce from "../../components/SingleDolce/SingleDolce";
+import { useAllProducts } from "../../context/AppContext";
 
 type Props = {
   dolci: ProductType[];
 };
 
 const Dolci: React.FC<Props> = ({ dolci }) => {
+  const { allProducts, setAllProducts } = useAllProducts();
+
+  useEffect(() => {
+    setAllProducts(dolci);
+  }, [dolci, setAllProducts]);
+
   useEffect(() => {
     document.body.classList.add("bg2");
 
@@ -15,11 +22,12 @@ const Dolci: React.FC<Props> = ({ dolci }) => {
       document.body.classList.remove("bg2");
     };
   }, []);
+
   return (
     <main className="main-dolci">
       <h1>I nostri Dolci</h1>
       <section className="section-dolci">
-        {dolci.map((el) => (
+        {allProducts.map((el) => (
           <SingleDolce key={el.id} {...el} />
         ))}
       </section>

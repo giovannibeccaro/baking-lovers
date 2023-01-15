@@ -8,6 +8,7 @@ import dbAccess from "../../utils/dbAccess";
 import { inputErrors } from "../../utils/inputErrors";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useAllProducts } from "../../context/AppContext";
 
 type Props = {
   dolci: ProductType[];
