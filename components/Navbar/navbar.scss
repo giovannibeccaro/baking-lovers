@@ -19,6 +19,13 @@ nav {
 
     a {
       color: $black;
+      &.active {
+        font-weight: 700;
+        text-decoration: underline;
+      }
+    }
+    .username {
+      text-transform: capitalize;
     }
   }
   @media (max-width: $mobile) {
@@ -26,6 +33,16 @@ nav {
     margin-bottom: 0.5rem;
     .logo {
       font-size: 1.25rem;
+    }
+  }
+  @media (max-width: 420px) {
+    flex-direction: column;
+    gap: 0.5rem;
+    .logo {
+      font-size: 1.5rem;
+    }
+    ul {
+      font-size: 1rem;
     }
   }
 }

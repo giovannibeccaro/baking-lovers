@@ -23,11 +23,14 @@ export function getPrice(price: string, expirationDate: string): PriceType {
 function getDiscount(expirationDate: string): number {
   const currDate = new Date();
   const expDate = new Date(JSON.parse(expirationDate));
+  console.log(currDate);
+  console.log(expDate);
 
   // get difference in milliseconds
   const difference = expDate.valueOf() - currDate.valueOf();
   //convert to days
   const daysToExpiration = Math.ceil(difference / (24 * 60 * 60 * 1000));
+  console.log(daysToExpiration);
   console.log(daysToExpiration);
 
   // if 2 days left: 20% | if 1 day left: 80%

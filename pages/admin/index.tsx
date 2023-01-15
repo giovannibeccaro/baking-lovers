@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormComponent from "../../components/FormComponent/FormComponent";
 import PopupMessage from "../../components/PopupMessage/PopupMessage";
 import ProductList from "../../components/ProductList/ProductList";
@@ -6,13 +6,14 @@ import ProductPreview from "../../components/ProductPreview/ProductPreview";
 import { ProductType } from "../../types";
 import dbAccess from "../../utils/dbAccess";
 import { inputErrors } from "../../utils/inputErrors";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type Props = {
   dolci: ProductType[];
 };
 
 const Admin: React.FC<Props> = ({ dolci }) => {
-  console.log(dolci);
   // setting product states
   const [prodName, setProdName] = useState("");
   const [price, setPrice] = useState("");
@@ -28,6 +29,18 @@ const Admin: React.FC<Props> = ({ dolci }) => {
   const [popupMessage, setPopupMessage] = useState<string>("");
   const [allProducts, setAllProducts] = useState<ProductType[]>(dolci);
   const [editingId, setEditingId] = useState("");
+
+  const { status, data } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    // if user is not authenticated, redirect to login
+    if (status === "unauthenticated") {
+      router.replace("/login");
+    }
+  }, [status, router]);
+
+  // if user is not authenticated return loading
+  if (status !== "authenticated") return <div>Loading</div>;
 
   return (
     <main className="main-admin">

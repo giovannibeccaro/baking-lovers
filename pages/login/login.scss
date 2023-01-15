@@ -1,0 +1,33 @@
+form.login-form {
+  margin-top: 5rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 30%;
+  padding: 2rem;
+  box-shadow: 0.5rem 0.5rem 1px $accentColor;
+
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+  input {
+    padding: 0.5rem;
+    &:focus-visible {
+      outline: 1px solid $accentColor;
+      border: 2px solid $accentColor;
+      border-radius: 0.15rem;
+    }
+  }
+  button {
+    margin-top: 2rem;
+    padding-block: 1rem;
+    background-color: $accentColor;
+    color: white;
+    font-weight: 700;
+    &:disabled {
+      filter: grayscale(1);
+    }
+  }
+}
