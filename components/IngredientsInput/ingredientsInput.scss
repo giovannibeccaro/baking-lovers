@@ -3,8 +3,17 @@
   align-items: flex-end;
   gap: 1%;
   margin-bottom: 1rem;
+  .left-part {
+    display: flex;
+    align-items: flex-end;
+    gap: 1%;
+    width: 100%;
+  }
   label {
     width: 30%;
+    @media (max-width: $mobile) {
+      font-size: 0.75rem;
+    }
   }
   button {
     width: 15%;

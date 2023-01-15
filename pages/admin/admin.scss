@@ -1,4 +1,9 @@
 .main-admin {
   width: 80%;
   margin-inline: auto;
+  @media (max-width: $mobile) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
 }
