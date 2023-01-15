@@ -38,6 +38,9 @@
     .info {
       display: flex;
       gap: 0.35rem;
+      .prodname {
+        font-weight: 700;
+      }
     }
     button {
       font-size: 0.75rem;

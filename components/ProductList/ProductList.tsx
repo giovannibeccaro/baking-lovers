@@ -59,7 +59,7 @@ const ProductList: React.FC<Props> = ({
             <div className="left">
               <Image src={el.image} alt={el.prodName} width="50" height="50" />
               <div className="info">
-                <p>{el.prodName}, </p>
+                <p className="prodname">{el.prodName}, </p>
                 <p>{el.price}€, </p>
                 <p>x{el.quantity}, </p>
                 <p>{el.date.split("-").reverse().join("/")},</p>

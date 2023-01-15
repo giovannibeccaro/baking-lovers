@@ -9,6 +9,7 @@
   @media (max-width: $mobile) {
     padding: 0rem;
     background-color: initial;
+    box-shadow: initial;
   }
   @media (max-width: 930px) {
     flex-direction: column;

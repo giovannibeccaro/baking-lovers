@@ -23,7 +23,7 @@ const Login = () => {
     });
     setLoading(false);
     if (res?.status === 200) {
-      router.replace("/admin");
+      router.replace("/");
     } else
       alert("La mail o la password non hanno dato risultati, prova di nuovo.");
   }
