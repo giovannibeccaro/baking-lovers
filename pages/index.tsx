@@ -10,6 +10,7 @@ export default function Home() {
       document.body.classList.remove("bg");
     };
   }, []);
+  console.log("check update");
 
   return (
     <>
