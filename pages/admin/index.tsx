@@ -8,7 +8,6 @@ import dbAccess from "../../utils/dbAccess";
 import { inputErrors } from "../../utils/inputErrors";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useAllProducts } from "../../context/AppContext";
 
 type Props = {
   dolci: ProductType[];
@@ -29,12 +28,7 @@ const Admin: React.FC<Props> = ({ dolci }) => {
   // message that pops up when user uploads product
   const [popupMessage, setPopupMessage] = useState<string>("");
   const [editingId, setEditingId] = useState("");
-
-  const { allProducts, setAllProducts } = useAllProducts(); // get allProducts from context
-
-  useEffect(() => {
-    setAllProducts(dolci);
-  }, [dolci, setAllProducts]);
+  const [allProducts, setAllProducts] = useState<ProductType[]>(dolci);
 
   const { status } = useSession();
   const router = useRouter();
