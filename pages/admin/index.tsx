@@ -125,7 +125,6 @@ export async function getServerSideProps() {
     props: {
       dolci: dolciSerialized.length ? dolciSerialized : [],
     },
-    revalidate: 1,
   };
 }
 

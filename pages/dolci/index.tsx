@@ -48,7 +48,6 @@ export async function getServerSideProps() {
     props: {
       dolci: mappedDolci.length ? mappedDolci : [],
     },
-    revalidate: 1,
   };
 }
 
