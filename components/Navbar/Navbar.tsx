@@ -8,7 +8,6 @@ const Navbar = () => {
   const router = useRouter();
   const username = data?.user?.email?.split("@")[0];
   const currentPath = router.pathname;
-  console.log(currentPath);
 
   return (
     <nav>

@@ -7,14 +7,12 @@ export default async function handler(
 ) {
   const id = req.body; // this contains name, price, quantity etc.
   const query = { id };
-  console.log(query);
   try {
     const { collection, client } = await dbAccess();
     await collection.deleteOne(query);
     client.close();
     res.status(201).json({ message: "Il dolce è stato eliminato!" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Nessun dolce eliminato :(" });
   }
 }

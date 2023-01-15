@@ -14,7 +14,6 @@ const SingleDolce: React.FC<ProductType> = ({
   const [showIngredients, setShowIngredients] = useState(false);
 
   const discountedPrice = getPrice(price, expirationDate);
-  if (prodName === "Preparata ieri, 20%") console.log(discountedPrice);
 
   return (
     <article

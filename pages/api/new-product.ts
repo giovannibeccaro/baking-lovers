@@ -21,7 +21,6 @@ export default async function handler(
     client.close();
     res.status(201).json({ message: "Il dolce è stato aggiunto!" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Nessun dolce aggiunto :(" });
   }
 }

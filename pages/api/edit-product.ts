@@ -30,7 +30,6 @@ export default async function handler(
     await client.close();
     res.status(201).json({ message: "Il dolce è stato eliminato!" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Nessun dolce eliminato :(" });
   }
 }
