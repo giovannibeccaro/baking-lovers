@@ -30,7 +30,7 @@ const Admin: React.FC<Props> = ({ dolci }) => {
   const [allProducts, setAllProducts] = useState<ProductType[]>(dolci);
   const [editingId, setEditingId] = useState("");
 
-  const { status, data } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   useEffect(() => {
     // if user is not authenticated, redirect to login
