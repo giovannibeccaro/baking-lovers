@@ -28,7 +28,7 @@ const Dolci: React.FC<Props> = ({ dolci }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { collection, client } = await dbAccess();
   const dolci = await collection.find().toArray();
   // we map through dolci to not pass property "_id" passed by mongoDB

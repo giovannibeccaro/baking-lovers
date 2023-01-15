@@ -106,7 +106,7 @@ const Admin: React.FC<Props> = ({ dolci }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { collection, client } = await dbAccess();
   const dolci = await collection.find().toArray();
   const dolciSerialized = dolci.map((el) => ({
